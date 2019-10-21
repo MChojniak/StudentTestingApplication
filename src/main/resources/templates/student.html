@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Strona Studenta</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!--<form action="#" th:action="@{/student}" th:object="${student}" method="post">-->
+    <!--<input type="text" th:field="*{login}" />-->
+    <!--<input type="text" th:field="*{email}" />-->
+
+
+<!--</form>-->
+
+<div>
+    <h1>Formularz nowego studenta</h1>
+    <h2>Moduł: <span th:text="${module}"/></h2>
+    <form action="#" th:action="@{/admin/dodajStudenta}" th:object="${student}" method="post">
+        <p>e-mail/login: <input type="text" th:field="*{email}" /></p>
+        <p>Imię: <input type="text" th:field="*{firstName}" /></p>
+        <p>Nazwisko: <input type="text" th:field="*{lastName}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+
+<div>
+
+    <h2>Lista Studentów</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>e-mail</th>
+            <th>pass</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${studenci}">
+            <td th:text="${student.id}">1</td>
+            <td th:text="${student.firstName}">Janek.Kowalski</td>
+            <td th:text="${student.lastName}">Janek.Kowalski</td>
+            <td th:text="${student.email}">Janek.Kowalski@gmail.com</td>
+            <td th:text="${student.password}">Janek.Kowalski</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: common_header(~{::title},~{})">
+    <!-- Required meta tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <!--<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">-->
+    <title>Rejestracja</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body class="d-flex flex-column h-100">
+<main role="main">
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div>
+
+                <h1>Rejestracja</h1>
+                <p>Proszę wypełnić formularz w celu rejestracji nowego uzytkownika</p>
+
+                <form name='registration' action="#" method='POST'
+                      th:object="${registrationForm}"
+                      th:action="@{/reg/registerNewUser}">
+                    <div class="form-group">
+                        <!--<label for="firstNameInput">Twoje imię</label>-->
+                        <input type="text" name='firstName' value='' class="form-control" id="firstNameInput"
+                               aria-describedby="firstNameHelp"
+                               placeholder="Podaj imię"
+                               th:value="*{firstName}"
+                               th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid' : (${formValidated} ? 'is-valid')"/>
+                        <div class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<label for="lastNameInput">Twoje nazwisko</label>-->
+                        <input type="text" name='lastName' value='' class="form-control" id="lastNameInput"
+                               aria-describedby="lastNameHelp"
+                               placeholder="Podaj nazwisko"
+                               th:value="*{lastName}"
+                               th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid' : (${formValidated} ? 'is-valid')"/>
+                        <div class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <!--<label for="emailInput">Adres e-mail</label>-->
+                        <input type="text" name='email' value='' class="form-control" id="emailInput"
+                               aria-describedby="emailHelp"
+                               placeholder="Podaj adres e-mail"
+                               th:value="*{email}"
+                               th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : (${formValidated} ? 'is-valid')"/>
+                        <small id="loginHelp" class="form-text text-muted">Podany adres e-mail będzie służył do
+                            logowania do
+                            aplikacji!
+                        </small>
+                        <div class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('email')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <!--<label for="passwordInput">Hasło</label>-->
+                        <input type="password" name='password' class="form-control" id="passwordInput"
+                               placeholder="Podaj Hasło"
+                               th:value="*{password}"
+                               th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : (${formValidated} ? 'is-valid')">
+                        <small id="passwordHelp" class="form-text text-muted">Hasło musi zawierać od 8 do 25 znaków,
+                            conajmniej jeden znak specjalny(@$!%*#?&) i jedną cyfrę!
+                        </small>
+                        <div class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('password')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <!--<label for="passwordConfirmationInput">Powtórz hasło</label>-->
+                        <input type="password" name='passwordConfirmation' class="form-control"
+                               id="passwordConfirmationInput"
+                               placeholder="Powtórz Hasło"
+                               th:value="*{passwordConfirmation}"
+                               th:classappend="${#fields.hasErrors('passwordConfirmation')} ? 'is-invalid' : (${formValidated} ? 'is-valid')">
+                        <div class="invalid-feedback">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('passwordConfirmation')}" th:text="${err}"/>
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Zarejestruj</button>
+                    <a class="btn btn-primary" href="login.html" role="button"
+                       th:href="@{/}">Anuluj</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

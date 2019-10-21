@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Strona Pytania</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <a class="navbar-brand my-2 my-sm-0" href="/logout">Wyloguj</a>
+</head>
+<body>
+
+<div>
+    <h1>Formularz nowego pytania</h1>
+    <h2>Moduł: <span th:text="${module}"/></h2>
+    <form action="#" th:action="@{/addAnswers}" th:object="${odpowiedz}" method="post">
+        <p>Odpowiedź: <input type="text" th:field="*{answerContent}"/></p>
+        <p>
+            Czy odpowiedź jest poprawna? <input type="checkbox" th:field="*{correct}" />
+        </p>
+        <p><select th:field="*{tempId}">
+            <option value="-1"> select question</option>
+            <option th:each="question : ${pytania}" th:value="${question.id}" th:text="${question.questionContent}"></option>
+        </select>
+        </p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+
+<div>
+    <h2>Lista odpowiedzi</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Treść odpowiedzi</th>
+            <th>Pytanie </th>
+            <th>Czy poprawna</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="answer :${odpowiedzi} ">
+            <td th:text="${answer.id}">666</td>
+            <td th:text="${answer.question} != null ? ${answer.question.questionContent} : 'brak przypisania'">666</td>
+            <td th:text="${answer.answerContent}">666</td>
+            <td th:text="${answer.correct}">false</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+
+</div>
+
+
+
+</body>
+</html>

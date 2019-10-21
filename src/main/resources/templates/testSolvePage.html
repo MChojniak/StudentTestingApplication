@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: common_header(~{},~{})">
+    <title>Aplikacja Kujon</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Common styles and scripts -->
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="../static/css/main.css">
+
+
+</head>
+
+
+
+
+<body class="d-flex flex-column h-100">
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/">Kujon</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="/wszystkieTesty">Twoje testy<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="/accDetails">Poprzednie testy<span class="sr-only">(current)</span></a>
+            </div>
+        </div>
+
+        <a class="navbar-brand my-2 my-sm-0" href="/logout">Wyloguj</a>
+    </nav>
+</header>
+
+<!--<div style=" height:800px; overflow:auto;">-->
+
+
+<!--    <table class="table table-dark table-hover" id="listTable">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Pytanie : </th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+
+<!--        <tbody>-->
+<!--        <tr th:each="question :${pytania} ">-->
+<!--            <div>-->
+<!--                <td th:text="${question.questionContent}">666</td>-->
+<!--            </div>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+
+<!--    </table>-->
+<!--</div>-->
+<form action="#" th:action="@{/testSolveSubmit}" th:object="${userPanelForm}" method="post">
+
+    <table class="table table-dark table-hover" id="listTable">
+        <thead>
+        <tr>
+            <th>Pytania :</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="userQuestion, idx : *{userQuestionSet} ">
+            <td>
+                <p th:text="${userQuestion.question.questionContent}">666</p>
+                <select class="custom-select" th:field="*{userQuestionSet[__${idx.index}__].answerId}" >
+                    <option value="-1"> select question</option>
+                    <option th:each="answer : ${userQuestion.question.answers}" th:value="${answer.id}"
+                            th:text="${answer.answerContent}"></option>
+                </select>
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+        <input type="submit" value="Submit" class="btn btn-warning"/>
+
+</form>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">Made by Marcin Chojniak.<br> Contact by email: marcin.chojniak3@gmail.com</span>
+    </div>
+</footer>
+<!--<div th:replace="fragments/bootstrap :: JavaScript">-->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<!--</div>-->
+</body>
+
+</body>
+</html>
