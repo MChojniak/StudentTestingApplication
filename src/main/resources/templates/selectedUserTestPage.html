@@ -18,8 +18,6 @@
 </head>
 
 
-
-
 <body class="d-flex flex-column h-100">
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -30,7 +28,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/utworzGrupe">Utwórz grupę<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active" href="/utworzGrupe">Utwórz grupę<span
+                        class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link active" href="/utworzTest">Utwórz test<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link active" href="/pokazTestyDlaAdmina">Pokaż testy<span class="sr-only">(current)</span></a>
             </div>
@@ -62,17 +61,18 @@
             <td th:text="${selectedUser.lastName}">666</td>
             <td th:text="${test2.test.testName}">666</td>
             <td th:text="${test2.score}">666</td>
-            <td  th:text="${test2.testPassed} ? ' Zaliczony ' : ' Niezaliczony '"></td>
+            <td th:text="${test2.testPassed} ? ' Zaliczony ' : ' Niezaliczony '"></td>
             <td>
-               <a th:href="@{/checkClosedTest(testid = ${test2.id})}" type="button" th:class="${!test2.testAvailable} ? 'btn btn-primary' : 'btn btn-danger disabled'">Sprawdź odpowiedzi // niedostępne </a>
-<!--            <a th:href="@{/checkClosedTest}" type="button" th:class="btn btn-danger disabled">Funkcjonalność niedostępna </a>-->
+                <a th:href="@{/checkClosedTest(testid = ${test2.id})}" type="button"
+                   th:class="${!test2.testAvailable} ? 'btn btn-primary' : 'btn btn-danger disabled'">Sprawdź odpowiedzi
+                    // niedostępne </a>
+                <!--            <a th:href="@{/checkClosedTest}" type="button" th:class="btn btn-danger disabled">Funkcjonalność niedostępna </a>-->
             </td>
         </tr>
         </tbody>
 
     </table>
 </div>
-
 
 
 <footer class="footer mt-auto py-3">

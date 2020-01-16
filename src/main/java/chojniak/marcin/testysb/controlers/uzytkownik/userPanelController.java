@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
-@SessionAttributes({"uzytkownik", "userPanelForm","userTest"})
+@SessionAttributes({"uzytkownik", "userPanelForm", "userTest"})
 @RequestMapping
 public class userPanelController {
     private UserService userService;
@@ -34,38 +34,21 @@ public class userPanelController {
 
 
     @GetMapping("/panelUzytkownika")
-    public String userTesty(Model model, Principal principal){
+    public String userTesty(Model model, Principal principal) {
         String userMail = principal.getName();
         User user = userService.findByEmail(userMail);
         Set<UserTest> testSet = userTestService.findUserTestByUser(user);
-        testSet = testSet.stream().filter(u->u.getTestAvailable()==true).collect(Collectors.toSet());
+        testSet = testSet.stream().filter(u -> u.getTestAvailable() == true).collect(Collectors.toSet());
 
         model.addAttribute("uzytkownik", user);
         model.addAttribute("testList", testSet);
         return "panelUzytkownika";
     }
 
-
-//    @GetMapping("/testSolve")
-//    public String testSolving(Model model,
-//                              @SessionAttribute("uzytkownik") User user,
-//                              Long userTestId){
-//        UserTest userTest = userTestService.findUserTestById(userTestId);
-//        Set<UserQuestion> userQuestionSet = userTest.getUserQuestions();
-//        Set<Question> questions = new HashSet<>();
-//        for(UserQuestion uq : userQuestionSet){
-//            questions.add(uq.getQuestion());
-//        }
-//
-//        model.addAttribute("pytania", questions);
-//        model.addAttribute("uzytkownik", user);
-//        return "testSolvePage";
-//    }
-
     @GetMapping("/testSolve")
     public String testSolving(Model model,
                               @SessionAttribute("uzytkownik") User user,
-                              Long userTestId){
+                              Long userTestId) {
         UserTest userTest = userTestService.findUserTestById(userTestId);
         Set<UserQuestion> userQuestionSet = userTest.getUserQuestions();
         UserPanelForm userPanelForm = new UserPanelForm();
@@ -85,15 +68,15 @@ public class userPanelController {
         int score = 0;
         int maxscore = 0;
         userTest.setUserQuestions(userPanelForm.getUserQuestionSet());
-        for(UserQuestion q : userTest.getUserQuestions()){
-            if(q.getAnswerId() > 0 ) {
+        for (UserQuestion q : userTest.getUserQuestions()) {
+            if (q.getAnswerId() > 0) {
                 Answers answers = answersService.findAnswerById(q.getAnswerId());
                 userQuestionService.saveAnsweredId(q, q.getAnswerId());
-                    if(answers.getCorrect() == true ){
-                        score += q.getQuestion().getQuestionValue();
-                        maxscore += q.getQuestion().getQuestionValue();
-                    } else maxscore += q.getQuestion().getQuestionValue();
-            }else maxscore += q.getQuestion().getQuestionValue();
+                if (answers.getCorrect() == true) {
+                    score += q.getQuestion().getQuestionValue();
+                    maxscore += q.getQuestion().getQuestionValue();
+                } else maxscore += q.getQuestion().getQuestionValue();
+            } else maxscore += q.getQuestion().getQuestionValue();
         }
 
         userTestService.closeUserTest(userTest, score, maxscore);

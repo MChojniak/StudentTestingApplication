@@ -17,7 +17,7 @@ public class RegistrationForm {
     private String passwordConfirmation;
 
     public boolean passwordConfirmationCorrect() {
-        return (passwordConfirmation != null && !passwordConfirmation.isEmpty()) ? passwordConfirmation.equals(password) : false ;
+        return (passwordConfirmation != null && !passwordConfirmation.isEmpty()) && passwordConfirmation.equals(password);
     }
 
     public String getFirstName() {

@@ -21,15 +21,15 @@ public class LoginController {
                             @RequestParam(value = "registered", required = false) String registered,
                             Model model) {
         String message = null;
-        if(error != null) {
+        if (error != null) {
             message = "Nazwa użytkownika lub hasło nie są poprawne !!";
             model.addAttribute("errorMessage", message);
         }
-        if(logout != null) {
+        if (logout != null) {
             message = "Zostałeś poprawnie wylogowany !!";
             model.addAttribute("logoutMessage", message);
         }
-        if(registered != null) {
+        if (registered != null) {
             message = "Rejestracja przebiegła pomyślnie !!";
             model.addAttribute("registrationMessage", message);
         }
@@ -38,9 +38,9 @@ public class LoginController {
     }
 
     @GetMapping("/logout")
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login?logout=true";

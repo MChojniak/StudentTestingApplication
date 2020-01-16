@@ -42,9 +42,7 @@ public class UserTestAndTestServices {
         }
     }
 
-    @Test
-    public void testOfServicesWithTest(){
-    }
+
     @Test
     public void testOfServicesWithUserQuestion(){
         UserTest userTest = userTestService.findUserTestById((long)1);

@@ -12,32 +12,33 @@ import java.util.*;
 @Transactional
 public class UserQuestionService {
     private UserQuestionRepository userQuestionRepository;
+
     @Autowired
     public UserQuestionService(UserQuestionRepository userQuestionRepository) {
         this.userQuestionRepository = userQuestionRepository;
     }
 
-    public UserQuestion addUserQuestion(){
+    public UserQuestion addUserQuestion() {
         UserQuestion userQuestion = new UserQuestion();
         return userQuestionRepository.save(userQuestion);
 
     }
 
-    public Set<UserQuestion> addUserQuestionsToUserTest(Set<Question> questions, UserTest userTest){
+    public Set<UserQuestion> addUserQuestionsToUserTest(Set<Question> questions, UserTest userTest) {
         Set<UserQuestion> userQuestions = new HashSet<>();
 
 
         List<Question> shuffledQuestions = new ArrayList<>(questions);
         Collections.shuffle(shuffledQuestions);
         int i = 0;
-        for(Question q : shuffledQuestions){
+        for (Question q : shuffledQuestions) {
             UserQuestion a = new UserQuestion();
             a.setQuestion(q);
             a.setUser(userTest.getUser());
             a.setUserTest(userTest);
             userQuestions.add(a);
             userQuestionRepository.save(a);
-            if(i==9) break;
+            if (i == 9) break;
             i++;
         }
 
@@ -54,12 +55,12 @@ public class UserQuestionService {
         return userQuestion;
     }
 
-    public UserQuestion findById(Long id){
+    public UserQuestion findById(Long id) {
         UserQuestion userQuestion = userQuestionRepository.findById(id).get();
         return userQuestion;
     }
 
-    public Set<UserQuestion> addUserTestToUserQuestion(UserTest userTest, Long id){
+    public Set<UserQuestion> addUserTestToUserQuestion(UserTest userTest, Long id) {
         UserQuestion userQuestion = findById(id);
         userQuestion.setUserTest(userTest);
         userTest.getUserQuestions().add(userQuestion);
