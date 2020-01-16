@@ -1,9 +1,7 @@
 package chojniak.marcin.testysb.controlers.uzytkownik;
 
-import chojniak.marcin.testysb.testy.Test;
 import chojniak.marcin.testysb.testy.answers.Answers;
 import chojniak.marcin.testysb.testy.answers.AnswersService;
-import chojniak.marcin.testysb.testy.question.Question;
 import chojniak.marcin.testysb.users.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -37,7 +34,7 @@ public class userPanelController {
     public String userTesty(Model model, Principal principal) {
         String userMail = principal.getName();
         User user = userService.findByEmail(userMail);
-        Set<UserTest> testSet = userTestService.findUserTestByUser(user);
+        Set<UserTest> testSet = userTestService.findUserTestsByUser(user);
         testSet = testSet.stream().filter(u -> u.getTestAvailable() == true).collect(Collectors.toSet());
 
         model.addAttribute("uzytkownik", user);

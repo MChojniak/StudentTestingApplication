@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -22,15 +20,15 @@ public class UserTestService {
         this.userTestRepository = userTestRepository;
     }
 
-    public UserTest addUserTest(){
+    public UserTest addUserTest() {
         UserTest userTest = new UserTest();
         return userTestRepository.save(userTest);
     }
 
-    public Set<UserTest> addUserTests(Set<User> users, Test test){
+    public Set<UserTest> addUserTests(Set<User> users, Test test) {
         Set<UserTest> userTests = new HashSet<>();
 
-        for(User a : users){
+        for (User a : users) {
             UserTest ut = new UserTest();
             ut.setUser(a);
             ut.setTest(test);
@@ -41,20 +39,22 @@ public class UserTestService {
     }
 
 
-    public UserTest findUserTestById(Long id){
+    public UserTest findUserTestById(Long id) {
         UserTest userTest = userTestRepository.findById(id).get();
         userTest.getUserQuestions().size();
         return userTest;
     }
 
-    public UserTest addTest(Test test, Long id){
+    public UserTest addTest(Test test, Long id) {
         UserTest userTest = findUserTestById(id);
         userTest.setTest(test);
         //test.getUserTest().add(userTest);
         return userTestRepository.save(userTest);
     }
 
-    public Set<UserTest> addUser(User user, Long id){
+
+    //TODO this function is returning wrong type of data and needs refactoring
+    public Set<UserTest> addUser(User user, Long id) {
         UserTest userTest = findUserTestById(id);
         user.getUserTests().add(userTest);
         userTest.setUser(user);
@@ -62,18 +62,21 @@ public class UserTestService {
         return user.getUserTests();
     }
 
-    public void closeUserTest(UserTest userTest, int score, int maxscore){
+    public void closeUserTest(UserTest userTest, int score, int maxscore) {
         userTest.setTestAvailable(false);
         userTest.setScore(score);
 
-        if(score > maxscore/2)
+        if (score > maxscore / 2)
             userTest.setTestPassed(true);
         userTestRepository.save(userTest);
     }
 
 
-
-    public Set<UserTest> findUserTestByUser(User user) {
+    public Set<UserTest> findUserTestsByUser(User user) {
         return userTestRepository.findAllByUser(user);
+    }
+
+    public ArrayList<UserTest> findAllUserTests() {
+        return userTestRepository.findAll();
     }
 }

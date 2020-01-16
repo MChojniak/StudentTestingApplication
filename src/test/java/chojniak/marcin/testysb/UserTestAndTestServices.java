@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest
-                .WebEnvironment.MOCK)
+        .WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 public class UserTestAndTestServices {
     @Autowired
@@ -30,23 +30,17 @@ public class UserTestAndTestServices {
     UserQuestionService userQuestionService;
 
     @Before
-    public void initDB(){
-        {
-            testService.addTest("test");
-        }
-        {
-            userTestService.addUserTest();
-        }
-        {
-            userQuestionService.addUserQuestion();
-        }
+    public void initDB() {
+        testService.addTest("test"); // id 1
+        userTestService.addUserTest(); // id 2
+        userQuestionService.addUserQuestion(); // id 3
     }
 
-
     @Test
-    public void testOfServicesWithUserQuestion(){
-        UserTest userTest = userTestService.findUserTestById((long)1);
-        Set<UserQuestion> userQuestions = userQuestionService.addUserTestToUserQuestion(userTest,(long)2);
+    public void testOfServicesWithUserQuestion() {
+        userTestService.findAllUserTests();
+        UserTest userTest = userTestService.findUserTestById((long) 2);
+        Set<UserQuestion> userQuestions = userQuestionService.addUserTestToUserQuestion(userTest, (long) 3);
         assertThat(userQuestions.size()).isEqualTo(1);
     }
 }

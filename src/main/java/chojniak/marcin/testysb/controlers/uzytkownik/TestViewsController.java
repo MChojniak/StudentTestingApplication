@@ -30,12 +30,12 @@ public class TestViewsController {
     }
 
     @GetMapping("/closedTests")
-    public String testsViewForUser(Model model, Principal principal){
+    public String testsViewForUser(Model model, Principal principal) {
 
         String userMail = principal.getName();
         User user = userService.findByEmail(userMail);
-        Set<UserTest> testSet = userTestService.findUserTestByUser(user);
-        testSet = testSet.stream().filter(u->u.getTestAvailable()==false).collect(Collectors.toSet());
+        Set<UserTest> testSet = userTestService.findUserTestsByUser(user);
+        testSet = testSet.stream().filter(u -> u.getTestAvailable() == false).collect(Collectors.toSet());
 
         model.addAttribute("uzytkownik", user);
         model.addAttribute("testList", testSet);
