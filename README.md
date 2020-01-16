@@ -28,7 +28,7 @@ StudentTestingApplication is working using open source projects to work:
 * [Bootstrap]
 
 ##### Installation guide
-###### Working application is accessible on my google drive: [DOWNLOAD](https://bit.ly/2uWX28H).
+###### Working application is accessible on my google drive: [DOWNLOAD](https://drive.google.com/open?id=1mjt7gJGes33e_6cn2d6PMOpMyi7dFMQx).
 #
 ```sh
 $ Install JDK 1.8 or higher.
