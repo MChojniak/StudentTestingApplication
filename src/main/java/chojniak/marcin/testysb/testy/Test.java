@@ -1,7 +1,6 @@
 package chojniak.marcin.testysb.testy;
 
 
-
 import chojniak.marcin.testysb.testy.question.Question;
 import chojniak.marcin.testysb.users.User;
 import chojniak.marcin.testysb.users.UserTest;

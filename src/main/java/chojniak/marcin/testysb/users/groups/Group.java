@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="GROUPS")
+@Table(name = "GROUPS")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

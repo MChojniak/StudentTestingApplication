@@ -38,7 +38,6 @@ public class UserTestService {
         return userTests;
     }
 
-
     public UserTest findUserTestById(Long id) {
         UserTest userTest = userTestRepository.findById(id).get();
         userTest.getUserQuestions().size();
@@ -51,7 +50,6 @@ public class UserTestService {
         //test.getUserTest().add(userTest);
         return userTestRepository.save(userTest);
     }
-
 
     //TODO this function is returning wrong type of data and needs refactoring
     public Set<UserTest> addUser(User user, Long id) {
@@ -70,7 +68,6 @@ public class UserTestService {
             userTest.setTestPassed(true);
         userTestRepository.save(userTest);
     }
-
 
     public Set<UserTest> findUserTestsByUser(User user) {
         return userTestRepository.findAllByUser(user);

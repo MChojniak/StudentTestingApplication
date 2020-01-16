@@ -25,8 +25,9 @@ public class groupController {
         this.userService = userService;
         this.groupService = groupService;
     }
+
     @GetMapping("/utworzGrupe")
-    public String grupy(Model model){
+    public String grupy(Model model) {
         Set<Group> groups = groupService.findAllGroups();
         model.addAttribute("grupa", new Group());
         model.addAttribute("grupy", groups);
@@ -36,7 +37,7 @@ public class groupController {
     @PostMapping("/dodajGrupe")
     public String dodajGrupe(Model model,
                              @SessionAttribute("grupy") Set<Group> groups,
-                             Group group){
+                             Group group) {
 
         group = groupService.addGroup(group.getName());
         groups.add(group);

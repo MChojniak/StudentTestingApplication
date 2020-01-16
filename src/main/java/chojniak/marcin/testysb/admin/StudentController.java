@@ -41,5 +41,4 @@ public class StudentController {
     public String module() {
         return "studenci";
     }
-
 }

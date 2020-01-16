@@ -21,7 +21,6 @@ public class StudentTestViewController {
     private UserQuestionService userQuestionService;
     private AnswersService answersService;
 
-
     @Autowired
     public StudentTestViewController(UserTestService userTestService, UserService userService, UserQuestionService userQuestionService, AnswersService answersService) {
         this.userTestService = userTestService;
@@ -58,7 +57,6 @@ public class StudentTestViewController {
         UserTest userTest = userTestService.findUserTestById(testid);
         User user = userTest.getUser();
 
-
         // dodanie tymczasowego obiektu answer który pozwala
         // na odkrycie kontentu odpowiedzi udzielonej przez uzytkownika
         for (UserQuestion q : userTest.getUserQuestions()) {
@@ -70,9 +68,7 @@ public class StudentTestViewController {
                 answers.setAnswerContent("Brak odpowiedzi");
                 q.setAnswerByUser(answers);
             }
-
         }
-
 
         model.addAttribute("userTest", userTest);
         model.addAttribute("selectedUser", user);

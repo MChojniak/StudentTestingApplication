@@ -33,7 +33,5 @@ public class DummyService {
         userTestRepository.save(newUserTest);
 
         throw new ApplicationException();
-
-//return newUser;
     }
 }

@@ -22,7 +22,7 @@ public class UserQuestion {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_ID")
     private User user;
-    @Column(name="ANSWERED_ID")
+    @Column(name = "ANSWERED_ID")
     private Long answerId;
     @Transient
     private Answers answerByUser;
@@ -85,7 +85,6 @@ public class UserQuestion {
     public void setRightAnswer(Boolean rightAnswer) {
         this.rightAnswer = rightAnswer;
     }
-
 
 
 }

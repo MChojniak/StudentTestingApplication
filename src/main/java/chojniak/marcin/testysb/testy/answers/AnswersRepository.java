@@ -7,5 +7,6 @@ import java.util.Set;
 
 public interface AnswersRepository extends CrudRepository<Answers, Long> {
     Set<Answers> findByQuestion(Question question);
+
     Set<Answers> findAll();
 }

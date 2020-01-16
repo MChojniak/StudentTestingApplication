@@ -9,5 +9,6 @@ import java.util.Set;
 @Repository
 public interface GroupRepository extends CrudRepository<Group, Long> {
     Group findByName(String name);
+
     Set<Group> findAll();
 }

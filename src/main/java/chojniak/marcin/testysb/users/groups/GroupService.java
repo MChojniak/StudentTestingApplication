@@ -22,44 +22,41 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public Group addGroup(String name){
+    public Group addGroup(String name) {
         Group group = new Group();
         group.setName(name);
 
-        group =  groupRepository.save(group);
+        group = groupRepository.save(group);
         group.getUsers().size();
         return group;
     }
 
-
-    public Group findGroupByName(String name){
+    public Group findGroupByName(String name) {
         logger.info("Wywoluje funkcje findGroupByName dla name: {}", name);
         Group group = groupRepository.findByName(name);
         group.getUsers().size();
         return groupRepository.findByName(name);
     }
 
-
-    public Set<User> findAllStudents(String name){
+    public Set<User> findAllStudents(String name) {
         return findGroupByName(name).getUsers();
     }
 
-    public Set<User> addUserToGroup(User user, String groupName){
+    public Set<User> addUserToGroup(User user, String groupName) {
         Group group = findGroupByName(groupName);
         group.getUsers().add(user);
         user.getGroups().add(group);
         groupRepository.save(group);
         return group.getUsers();
     }
-    public Set<User> deleteFromGroup(User user, Group group){
-    Set<User> users = group.getUsers();
-    users = users.stream().filter(u-> u.getEmail()!=user.getEmail()).collect(Collectors.toSet());
-    group.setUsers(users);
-    groupRepository.save(group);
-    return users;
-}
 
-
+    public Set<User> deleteFromGroup(User user, Group group) {
+        Set<User> users = group.getUsers();
+        users = users.stream().filter(u -> !u.getEmail().equals(user.getEmail())).collect(Collectors.toSet());
+        group.setUsers(users);
+        groupRepository.save(group);
+        return users;
+    }
 
     public Set<Group> findAllGroups() {
         return groupRepository.findAll();

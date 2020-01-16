@@ -41,15 +41,15 @@ public class UserRegistrationController {
                     "Hasła muszą być zgodne!");
             bindingResult.addError(error);
         }
-        if(!registrationForm.getEmail().isEmpty()) {
-            if (this.userService.checkIfEmailExist(registrationForm.getEmail())){
+        if (!registrationForm.getEmail().isEmpty()) {
+            if (this.userService.checkIfEmailExist(registrationForm.getEmail())) {
                 FieldError error = new FieldError(
                         "registrationForm",
                         "email",
                         null,
                         false,
                         new String[]{"email",
-                        "registrationForm.email"},
+                                "registrationForm.email"},
                         null,
                         "Taki e-mail już istnieje!");
                 bindingResult.addError(error);
@@ -63,12 +63,9 @@ public class UserRegistrationController {
                     registrationForm.getPassword()
             );
             return "redirect:/login?registered=true";
-
         }
         model.addAttribute("registrationForm", registrationForm);
         model.addAttribute("formValidated", true);
         return "registration";
     }
-
-
 }

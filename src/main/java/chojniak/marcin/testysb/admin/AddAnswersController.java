@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Controller
-@SessionAttributes({"odpowiedzi","question"})
+@SessionAttributes({"odpowiedzi", "question"})
 @RequestMapping
 public class AddAnswersController {
     private QuestionService questionService;
@@ -33,7 +33,7 @@ public class AddAnswersController {
     @GetMapping("/dodajOdpowiedz")
     public String dodajOdpowiedz(Model model,
                                  Long questionid,
-                                 HttpSession session){
+                                 HttpSession session) {
         Question question = questionService.findById(questionid);
         Set<Answers> answers = question.getAnswers();
 
@@ -43,9 +43,10 @@ public class AddAnswersController {
         model.addAttribute("odp", new Answers());
         return "answersForm";
     }
+
     @GetMapping("/pokazOdpowiedzi")
     public String pokazOdpowiedzi(Model model,
-                                  Long questionid){
+                                  Long questionid) {
         Question question = questionService.findById(questionid);
         Set<Answers> answers = question.getAnswers();
 
@@ -60,14 +61,14 @@ public class AddAnswersController {
                                       @SessionAttribute("odpowiedzi") Set<Answers> answers,
                                       @SessionAttribute("question") Question question,
                                       Model model,
-                                      HttpSession session){
+                                      HttpSession session) {
         Answers answered = new Answers();
         answered.setAnswerContent(answer.getAnswerContent());
         answered.setCorrect(answer.getCorrect());
         answered.setQuestion(question);
         answered = answersService.addAnswer(answered);
         answers.add(answered);
-       // model.addAttribute("question", question);
+        // model.addAttribute("question", question);
         model.addAttribute("odp", new Answers());
         return "redirect:/utworzTest";
     }

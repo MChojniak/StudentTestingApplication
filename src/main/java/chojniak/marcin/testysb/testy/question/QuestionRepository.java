@@ -9,6 +9,8 @@ import java.util.Set;
 @Repository
 public interface QuestionRepository extends CrudRepository<Question, Long> {
     Set<Question> findByQuestionContent(String qContent);
+
     Set<Question> findAll();
+
     Set<Question> findByTest(Test test);
 }

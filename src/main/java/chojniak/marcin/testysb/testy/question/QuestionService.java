@@ -23,21 +23,20 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-
-    public Question addQuestion(String questionContent, int questionValue){
+    public Question addQuestion(String questionContent, int questionValue) {
         Question question = new Question();
         question.setQuestionContent(questionContent);
         question.setQuestionValue(questionValue);
         Question q1 = questionRepository.save(question);
-        logger.info("addQuestion -- {} , {} , {}",q1.getId(),q1.getQuestionContent(),q1.getQuestionValue());
+        logger.info("addQuestion -- {} , {} , {}", q1.getId(), q1.getQuestionContent(), q1.getQuestionValue());
         return q1;
     }
 
-    public Question addQuestionToTest(Test test, Long id){
+    public Question addQuestionToTest(Test test, Long id) {
         Question question = findById(id);
         question.setTest(test);
         test.getQuestions().add(question);
-        return  questionRepository.save(question);
+        return questionRepository.save(question);
     }
 
     public Question findById(Long id) {
@@ -46,37 +45,34 @@ public class QuestionService {
         return question;
     }
 
-    public Set<Question> findAllQuestions(){
+    public Set<Question> findAllQuestions() {
         return questionRepository.findAll();
     }
 
-    public Question findByQuestionContent(String qContent, Test test){
+    public Question findByQuestionContent(String qContent, Test test) {
         Set<Question> questions = questionRepository.findByQuestionContent(qContent);
-        Question question = null;
-        if(questions.size() == 1)
-            for(Question a : questions) {
-                question = a;
+        if (questions.size() == 1)
+            for (Question a : questions) {
                 return a;
             }
-        else if (questions.size() > 0){
-            for(Question a : questions)
-                if(a.getTest().getTestName() == test.getTestName()) {
-                    question = a;
+        else if (questions.size() > 0) {
+            for (Question a : questions)
+                if (a.getTest().getTestName().equals(test.getTestName())) {
                     return a;
                 }
         }
-        return question;
+        return null;
     }
 
 
-    public Set<Question> findQuestionsOfTest(Test test){
+    public Set<Question> findQuestionsOfTest(Test test) {
         return questionRepository.findByTest(test);
     }
 
-    public Set<Question> deleteFromTest(Test test, Long id){
+    public Set<Question> deleteFromTest(Test test, Long id) {
         Question question = findById(id);
         Set<Question> questions = test.getQuestions();
-        questions = questions.stream().filter(u->u.getId()!=question.getId()).collect(Collectors.toSet());
+        questions = questions.stream().filter(u -> !u.getId().equals(question.getId())).collect(Collectors.toSet());
         test.setQuestions(questions);
         questionRepository.save(question);
         return questions;
@@ -85,10 +81,4 @@ public class QuestionService {
     public Question addQuestion(Question newQuestion) {
         return questionRepository.save(newQuestion);
     }
-
-//    public Question addUserAnswer(Long questionId,Long answerId){
-//        Question question = findById(questionId);
-//        Answers answer = AnswersService.findBy
-//        question.setAnswerByUser();
-//    }
 }

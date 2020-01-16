@@ -31,7 +31,6 @@ public class Question {
     private Long temp_id;
 
 
-
     public Question(String questionContent, int questionValue) {
         this.questionContent = questionContent;
         this.questionValue = questionValue;

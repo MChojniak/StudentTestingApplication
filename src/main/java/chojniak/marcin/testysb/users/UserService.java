@@ -37,19 +37,16 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-
     public boolean checkIfEmailExist(String email) {
         User found = userRepository.findByEmail(email);
-        if (found != null)
-            return true;
-        return false;
+        return found != null;
     }
 
     public Set<User> listUsers() {
         return userRepository.findAll();
     }
 
-    public User findByEmail(String email){
+    public User findByEmail(String email) {
         logger.info("Wywoluje funkcje findByEmail dla maila: {}", email);
         User user = userRepository.findByEmail(email);
         user.getGroups().size();
@@ -58,14 +55,14 @@ public class UserService {
     }
 
     public Set<User> findAllNotAdmins() {
-        Set<User> users =  userRepository.findAll();
-        users = users.stream().filter(u-> !u.getAdmin()).collect(Collectors.toSet());
+        Set<User> users = userRepository.findAll();
+        users = users.stream().filter(u -> !u.getAdmin()).collect(Collectors.toSet());
         return users;
     }
 
     public Set<User> findAllUsersButGroup(Group group) {
         Set<User> users = findAllNotAdmins();
-        users = users.stream().filter(u-> !u.getGroups().contains(group)).collect(Collectors.toSet());
+        users = users.stream().filter(u -> !u.getGroups().contains(group)).collect(Collectors.toSet());
         return users;
     }
 

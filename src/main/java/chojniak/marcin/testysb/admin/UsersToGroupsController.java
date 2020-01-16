@@ -13,9 +13,10 @@ import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 @Controller
-@SessionAttributes({"grupa","usersOutOfGroup","usersToGroup"})
+@SessionAttributes({"grupa", "usersOutOfGroup", "usersToGroup"})
 @RequestMapping
 public class UsersToGroupsController {
+
     private UserService userService;
     private GroupService groupService;
 
@@ -25,15 +26,13 @@ public class UsersToGroupsController {
         this.groupService = groupService;
     }
 
-
-
     @GetMapping("/dodajDoGrupy")
     public String dodajDoGrupy(Model model,
                                Long grupaid,
-                               HttpSession session){
+                               HttpSession session) {
         Group group = groupService.findGroupById(grupaid);
         Set<User> users = userService.findAllUsersButGroup(group);
-        model.addAttribute("grupa",group);
+        model.addAttribute("grupa", group);
         model.addAttribute("usersOutOfGroup", users);
         return "uzytkownicyDoGrup";
     }
@@ -42,15 +41,14 @@ public class UsersToGroupsController {
     public String dodajUsera(Model model,
                              Long grupaid,
                              String usermail,
-                             HttpSession session){
+                             HttpSession session) {
         Group group = groupService.findGroupById(grupaid);
         User user = userService.findByEmail(usermail);
         group.getUsers().add(user);
         Set<User> users = userService.findAllUsersButGroup(group);
         users.remove(user);
-        model.addAttribute("grupa",group);
+        model.addAttribute("grupa", group);
         model.addAttribute("usersOutOfGroup", users);
         return "uzytkownicyDoGrup";
     }
-
 }

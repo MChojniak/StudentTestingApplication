@@ -18,6 +18,7 @@ import java.util.Set;
 public class TestController {
     private TestService testService;
     private QuestionService questionService;
+
     @Autowired
     public TestController(TestService testService,
                           QuestionService questionService) {
@@ -26,27 +27,28 @@ public class TestController {
     }
 
     @GetMapping("/utworzTest")
-    public String testsList(Model model){
+    public String testsList(Model model) {
         Set<Test> tests = testService.findAllTests();
         model.addAttribute("testy", tests);
         model.addAttribute("test", new Test());
         model.addAttribute("testToDetail", new Test());
         return "testing";
     }
+
     @PostMapping("/addTest")
     public String addTest(@ModelAttribute Test test,
                           @SessionAttribute("testy") Set<Test> tests,
-                          Model model){
+                          Model model) {
         Test newTest = testService.addTest(test.getTestName());
         tests.add(newTest);
-        model.addAttribute("test" ,new Test());
+        model.addAttribute("test", new Test());
         return "testing";
     }
 
     @GetMapping("/testDetails")
     public String testDetails(@ModelAttribute("testToDetail") Test test,
                               Long testid,
-                              Model model){
+                              Model model) {
         Test test1 = testService.findById(testid);
         Set<Question> questions = questionService.findQuestionsOfTest(test1);
         model.addAttribute("test", test1);

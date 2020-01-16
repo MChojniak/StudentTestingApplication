@@ -21,19 +21,18 @@ public class TestService {
         this.testRepository = testRepository;
     }
 
-    public Test addTest(String name){
+    public Test addTest(String name) {
         Test test = new Test(name);
         return testRepository.save(test);
     }
-    public Test findById(Long id){
+
+    public Test findById(Long id) {
         Test test = testRepository.findById(id).get();
         test.getQuestions().size();
         return test;
     }
 
-
-
     public Set<Test> findAllTests() {
-    return testRepository.findAll();
-}
+        return testRepository.findAll();
+    }
 }

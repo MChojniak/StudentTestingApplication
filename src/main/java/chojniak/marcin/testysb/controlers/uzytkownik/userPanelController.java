@@ -29,13 +29,12 @@ public class userPanelController {
         this.userQuestionService = userQuestionService;
     }
 
-
     @GetMapping("/panelUzytkownika")
     public String userTesty(Model model, Principal principal) {
         String userMail = principal.getName();
         User user = userService.findByEmail(userMail);
         Set<UserTest> testSet = userTestService.findUserTestsByUser(user);
-        testSet = testSet.stream().filter(u -> u.getTestAvailable() == true).collect(Collectors.toSet());
+        testSet = testSet.stream().filter(u -> u.getTestAvailable()).collect(Collectors.toSet());
 
         model.addAttribute("uzytkownik", user);
         model.addAttribute("testList", testSet);
@@ -69,17 +68,13 @@ public class userPanelController {
             if (q.getAnswerId() > 0) {
                 Answers answers = answersService.findAnswerById(q.getAnswerId());
                 userQuestionService.saveAnsweredId(q, q.getAnswerId());
-                if (answers.getCorrect() == true) {
+                if (answers.getCorrect()) {
                     score += q.getQuestion().getQuestionValue();
                     maxscore += q.getQuestion().getQuestionValue();
                 } else maxscore += q.getQuestion().getQuestionValue();
             } else maxscore += q.getQuestion().getQuestionValue();
         }
-
         userTestService.closeUserTest(userTest, score, maxscore);
-
-
         return "redirect:/panelUzytkownika";
     }
-
 }

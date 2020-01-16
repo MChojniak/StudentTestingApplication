@@ -21,12 +21,10 @@ public class UserQuestionService {
     public UserQuestion addUserQuestion() {
         UserQuestion userQuestion = new UserQuestion();
         return userQuestionRepository.save(userQuestion);
-
     }
 
     public Set<UserQuestion> addUserQuestionsToUserTest(Set<Question> questions, UserTest userTest) {
         Set<UserQuestion> userQuestions = new HashSet<>();
-
 
         List<Question> shuffledQuestions = new ArrayList<>(questions);
         Collections.shuffle(shuffledQuestions);
@@ -41,10 +39,8 @@ public class UserQuestionService {
             if (i == 9) break;
             i++;
         }
-
         return userQuestions;
     }
-
 
     public UserQuestion addUserQuestion(UserTest userTest, User user, Question question) {
         UserQuestion userQuestion = new UserQuestion();
@@ -56,8 +52,7 @@ public class UserQuestionService {
     }
 
     public UserQuestion findById(Long id) {
-        UserQuestion userQuestion = userQuestionRepository.findById(id).get();
-        return userQuestion;
+        return userQuestionRepository.findById(id).get();
     }
 
     public Set<UserQuestion> addUserTestToUserQuestion(UserTest userTest, Long id) {
@@ -67,7 +62,6 @@ public class UserQuestionService {
         userQuestionRepository.save(userQuestion);
         return userTest.getUserQuestions();
     }
-
 
     public void saveAnsweredId(UserQuestion q, Long answerId) {
         q.setAnswerId(answerId);

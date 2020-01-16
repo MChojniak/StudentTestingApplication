@@ -21,12 +21,12 @@ public class AnswersService {
         this.answersRepository = answersRepository;
     }
 
-    public Answers addAnswer(Answers answers){
+    public Answers addAnswer(Answers answers) {
         return answersRepository.save(answers);
 
     }
 
-    public Set<Answers> addAnswerToQuestion(Answers answers, Question question){
+    public Set<Answers> addAnswerToQuestion(Answers answers, Question question) {
         answers.setQuestion(question);
         question.getAnswers().add(answers);
         answersRepository.save(answers);
@@ -34,24 +34,25 @@ public class AnswersService {
     }
 
 
-
-    public Set<Answers> findQuestionAnswers(Question question){
+    public Set<Answers> findQuestionAnswers(Question question) {
         return answersRepository.findByQuestion(question);
     }
-    public Answers findAnswerById(Long id){
+
+    public Answers findAnswerById(Long id) {
         return answersRepository.findById(id).get();
     }
 
 
-    public Set<Answers> deleteAnswerFromQuestion(Answers answers, Question question){
+    public Set<Answers> deleteAnswerFromQuestion(Answers answers, Question question) {
         Set<Answers> answersSet = question.getAnswers();
-        answersSet = answersSet.stream().filter(u-> u.getId()!=answers.getId()).collect(Collectors.toSet());
+        answersSet = answersSet.stream().filter(u -> !u.getId().equals(answers.getId())).collect(Collectors.toSet());
         question.setAnswers(answersSet);
         answersRepository.save(answers);
         return question.getAnswers();
 
     }
 
-    public Set<Answers> findAll() { return answersRepository.findAll();
+    public Set<Answers> findAll() {
+        return answersRepository.findAll();
     }
 }

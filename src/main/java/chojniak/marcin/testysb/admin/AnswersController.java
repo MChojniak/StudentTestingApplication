@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @Controller
-@SessionAttributes({"odpowiedzi","pytania"})
+@SessionAttributes({"odpowiedzi", "pytania"})
 @RequestMapping()
 public class AnswersController {
     private AnswersService answersService;
     private QuestionService questionService;
+
     @Autowired
     public AnswersController(AnswersService answersService, QuestionService questionService) {
         this.answersService = answersService;
@@ -25,13 +26,13 @@ public class AnswersController {
     }
 
     @GetMapping("/answers")
-    public String listAnswers(Model model){
+    public String listAnswers(Model model) {
         Set<Answers> answersSet = answersService.findAll();
         Set<Question> questions = questionService.findAllQuestions();
 
         model.addAttribute("odpowiedzi", answersSet);
         model.addAttribute("pytania", questions);
-        model.addAttribute("odpowiedz",new Answers());
+        model.addAttribute("odpowiedz", new Answers());
         return "answers";
     }
 
@@ -39,7 +40,7 @@ public class AnswersController {
     public String addAnswer(@ModelAttribute Answers answer,
                             @SessionAttribute("odpowiedzi") Set<Answers> answersSet,
                             @SessionAttribute("pytania") Set<Question> questions,
-                            Model model){
+                            Model model) {
 
         Answers newAnswer = new Answers();// = new Answers(answer.getAnswerContent(),answer.getCorrect());
         newAnswer.setAnswerContent(answer.getAnswerContent());
@@ -49,7 +50,7 @@ public class AnswersController {
         newAnswer = answersService.addAnswer(newAnswer);
         answersSet.add(newAnswer);
         model.addAttribute("odpowiedz", new Answers());
-         return "answers";
+        return "answers";
     }
 
     @ModelAttribute(name = "module")

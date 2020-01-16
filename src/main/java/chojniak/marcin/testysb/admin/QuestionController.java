@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Set;
 
 @Controller
-@SessionAttributes({"pytania","testy","tescik"})
+@SessionAttributes({"pytania", "testy", "tescik"})
 @RequestMapping
 public class QuestionController {
     private QuestionService questionService;
@@ -30,7 +30,7 @@ public class QuestionController {
     @GetMapping("/question")
     public String questionList(Model model,
                                Long testid,
-                               HttpSession session){
+                               HttpSession session) {
 
         Test test = testService.findById(testid);
         Set<Question> questions = test.getQuestions();
@@ -45,9 +45,9 @@ public class QuestionController {
     public String addQuestion(@ModelAttribute Question question,
                               @SessionAttribute("pytania") Set<Question> questions,
                               Model model,
-                              @SessionAttribute("tescik") Test test){
+                              @SessionAttribute("tescik") Test test) {
 
-        Question newQuestion = new Question(question.getQuestionContent(),question.getQuestionValue());
+        Question newQuestion = new Question(question.getQuestionContent(), question.getQuestionValue());
         newQuestion.setTest(test);
         questionService.addQuestion(newQuestion);
         questions.add(newQuestion);
