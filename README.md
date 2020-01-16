@@ -29,7 +29,6 @@ StudentTestingApplication is working using open source projects to work:
 
 ##### Installation guide
 ###### Working application is accessible on my google drive: [DOWNLOAD](https://drive.google.com/open?id=1mjt7gJGes33e_6cn2d6PMOpMyi7dFMQx).
-#
 ```sh
 $ Install JDK 1.8 or higher.
 $ Download and unzip library.
@@ -48,7 +47,7 @@ $ Credentials:
     # no credentials needed (beside previously log in to application).
 ```
 `$PATH` - path to folder with unzipped package
-#
+
 `${APPLICATION.JAR}` - in this case: testy-sb-0.0.1-SNAPSHOT.jar
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
